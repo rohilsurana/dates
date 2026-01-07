@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, useMemo } from 'react';
 import { DateForm } from '@/components/date-form';
 import { DateCard } from '@/components/date-card';
@@ -11,7 +9,7 @@ import { Clock } from 'lucide-react';
 
 const SORT_PREFERENCE_KEY = 'date-tracker-sort-preference';
 
-export default function Home() {
+function App() {
   const [entries, setEntries] = useState<DateEntry[]>([]);
   const [editingEntry, setEditingEntry] = useState<DateEntry | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -20,21 +18,15 @@ export default function Home() {
   useEffect(() => {
     setEntries(storage.getEntries());
 
-    // Load sort preference from localStorage
-    if (typeof window !== 'undefined') {
-      const savedSort = localStorage.getItem(SORT_PREFERENCE_KEY);
-      if (savedSort && (savedSort === 'date' || savedSort === 'created' || savedSort === 'name')) {
-        setSortBy(savedSort);
-      }
+    const savedSort = localStorage.getItem(SORT_PREFERENCE_KEY);
+    if (savedSort && (savedSort === 'date' || savedSort === 'created' || savedSort === 'name')) {
+      setSortBy(savedSort);
     }
   }, []);
 
   const handleSortChange = (sort: 'date' | 'created' | 'name') => {
     setSortBy(sort);
-    // Save sort preference to localStorage
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(SORT_PREFERENCE_KEY, sort);
-    }
+    localStorage.setItem(SORT_PREFERENCE_KEY, sort);
   };
 
   const filteredAndSortedEntries = useMemo(() => {
@@ -61,7 +53,7 @@ export default function Home() {
   }, [entries, selectedTag, sortBy]);
 
   const handleAddEntry = (data: { name: string; date: string; tags: string[] }) => {
-    const newEntry = storage.addEntry(data);
+    storage.addEntry(data);
     setEntries(storage.getEntries());
   };
 
@@ -147,3 +139,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default App;
