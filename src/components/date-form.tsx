@@ -98,8 +98,16 @@ export function DateForm({ onSubmit, onCancel, initialData }: DateFormProps) {
                 {date ? format(date, 'PPP') : <span>Pick a date</span>}
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+            <PopoverContent className="p-0" side="bottom" align="start">
+              <Calendar
+                mode="single"
+                selected={date}
+                onSelect={setDate}
+                initialFocus
+                captionLayout="dropdown"
+                fromYear={1900}
+                toYear={2100}
+              />
             </PopoverContent>
           </Popover>
         </div>

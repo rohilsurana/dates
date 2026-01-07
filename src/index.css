@@ -69,3 +69,6 @@
     animation: fadeIn 0.3s ease-out;
   }
 }
+
+/* Fix for Radix Popover positioning is now handled in JavaScript (popover.tsx) */
+/* This ensures the calendar is properly anchored to the trigger button */

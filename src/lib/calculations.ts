@@ -20,29 +20,35 @@ export interface TimeElapsed {
   minutes: number;
   seconds: number;
   totalSeconds: number;
+  isFuture: boolean;
 }
 
 export function calculateTimeElapsed(targetDate: Date): TimeElapsed {
   const now = new Date();
+  const isFuture = targetDate > now;
 
-  const years = differenceInYears(now, targetDate);
-  const afterYears = subYears(now, years);
+  // For future dates, swap the order
+  const start = isFuture ? now : targetDate;
+  const end = isFuture ? targetDate : now;
 
-  const months = differenceInMonths(afterYears, targetDate);
+  const years = differenceInYears(end, start);
+  const afterYears = subYears(end, years);
+
+  const months = differenceInMonths(afterYears, start);
   const afterMonths = subMonths(afterYears, months);
 
-  const days = differenceInDays(afterMonths, targetDate);
+  const days = differenceInDays(afterMonths, start);
   const afterDays = subDays(afterMonths, days);
 
-  const hours = differenceInHours(afterDays, targetDate);
+  const hours = differenceInHours(afterDays, start);
   const afterHours = subHours(afterDays, hours);
 
-  const minutes = differenceInMinutes(afterHours, targetDate);
+  const minutes = differenceInMinutes(afterHours, start);
   const afterMinutes = subMinutes(afterHours, minutes);
 
-  const seconds = differenceInSeconds(afterMinutes, targetDate);
+  const seconds = differenceInSeconds(afterMinutes, start);
 
-  const totalSeconds = differenceInSeconds(now, targetDate);
+  const totalSeconds = differenceInSeconds(end, start);
 
   return {
     years,
@@ -52,6 +58,7 @@ export function calculateTimeElapsed(targetDate: Date): TimeElapsed {
     minutes,
     seconds,
     totalSeconds,
+    isFuture,
   };
 }
 
@@ -77,5 +84,6 @@ export function formatTimeElapsed(elapsed: TimeElapsed): string {
     parts.push(`${elapsed.seconds} second${elapsed.seconds !== 1 ? 's' : ''}`);
   }
 
-  return parts.join(', ') + ' ago';
+  const timeString = parts.join(', ');
+  return elapsed.isFuture ? `in ${timeString}` : `${timeString} ago`;
 }
