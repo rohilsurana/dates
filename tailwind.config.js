@@ -46,6 +46,9 @@ export default {
           foreground: 'oklch(var(--card-foreground) / <alpha-value>)',
         },
       },
+      borderColor: {
+        DEFAULT: 'oklch(var(--border) / <alpha-value>)',
+      },
     },
   },
   plugins: [],
