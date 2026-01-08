@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Date Tracker
+
+A Progressive Web App (PWA) to track time elapsed since important moments in your life. Built with Vite, React, and TypeScript.
+
+🔗 **Live Demo**: [https://rohilsurana.github.io/dates/](https://rohilsurana.github.io/dates/)
+
+## Features
+
+- Track multiple dates with custom labels and tags
+- Real-time countdown/countup for past and future dates
+- Calendar picker with year/month dropdowns (1900-2100)
+- Celebration icons for birthdays and anniversaries
+- Filter by tags (birthday, anniversary, work, personal, other)
+- Dark mode with OKLCH color system
+- PWA support - install on mobile and desktop
+- Responsive design
+
+## Tech Stack
+
+- **Build Tool**: Vite
+- **Framework**: React 18
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI
+- **Date Utilities**: date-fns
+- **Icons**: Lucide React
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 20 or higher
+- npm
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:5174/dates/](http://localhost:5174/dates/) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build for production:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Preview production build:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run preview
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deployment
 
-## Deploy on Vercel
+The app automatically deploys to GitHub Pages via GitHub Actions on every push to the `main` branch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The workflow:
+1. Builds the app with Vite
+2. Uploads the `dist` folder as a GitHub Pages artifact
+3. Deploys to GitHub Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## PWA Installation
+
+The app can be installed as a PWA on mobile and desktop devices:
+
+1. Visit the live demo
+2. Look for the "Install" prompt in your browser
+3. Click "Install" to add to your home screen
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── ui/           # Radix UI component wrappers
+│   ├── date-card.tsx # Individual date entry card
+│   ├── date-form.tsx # Date picker form
+│   └── filter-bar.tsx # Tag filter
+├── lib/
+│   ├── calculations.ts # Time elapsed calculations
+│   └── utils.ts        # Utility functions
+├── App.tsx
+└── index.css         # Global styles with OKLCH colors
+
+public/
+├── icon.svg          # Favicon
+├── icon-with-bg.svg  # PWA icon
+└── .nojekyll         # GitHub Pages config
+```
+
+## License
+
+MIT
