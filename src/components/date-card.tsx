@@ -29,6 +29,9 @@ export function DateCard({ entry, onEdit, onDelete }: DateCardProps) {
   const [shouldCelebrate, setShouldCelebrate] = useState(checkCelebration);
 
   useEffect(() => {
+    // Update immediately when entry changes
+    setShouldCelebrate(checkCelebration());
+
     // Update celebration status every minute
     const interval = setInterval(() => {
       setShouldCelebrate(checkCelebration());
@@ -38,23 +41,23 @@ export function DateCard({ entry, onEdit, onDelete }: DateCardProps) {
   }, [entry.date, entry.tags]);
 
   return (
-    <Card className="group hover:shadow-md transition-all duration-200 hover:border-neutral-400 animate-fade-in">
+    <Card className="group hover:shadow-md transition-all duration-200 hover:border-ring animate-fade-in">
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
             <div className="flex items-start gap-3">
-              <div className={`p-2 rounded-lg flex-shrink-0 ${shouldCelebrate ? 'bg-amber-100' : 'bg-neutral-100'}`}>
+              <div className={`p-2 rounded-lg flex-shrink-0 ${shouldCelebrate ? 'bg-amber-100 dark:bg-amber-950' : 'bg-secondary'}`}>
                 {shouldCelebrate ? (
-                  <PartyPopper className="h-4 w-4 text-amber-600" />
+                  <PartyPopper className="h-4 w-4 text-amber-600 dark:text-amber-400" />
                 ) : (
-                  <Calendar className="h-4 w-4 text-neutral-600" />
+                  <Calendar className="h-4 w-4 text-muted-foreground" />
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-lg text-neutral-900 truncate">
+                <h3 className="font-semibold text-lg text-foreground truncate">
                   {entry.name || format(new Date(entry.date), 'PPP')}
                 </h3>
-                <p className="text-sm text-neutral-500 mt-0.5">
+                <p className="text-sm text-muted-foreground mt-0.5">
                   {entry.name ? `${format(new Date(entry.date), 'PPP')} at ${format(new Date(entry.date), 'p')}` : `Started at ${format(new Date(entry.date), 'p')}`}
                 </p>
                 <TimeElapsed targetDate={entry.date} className="mt-2" />

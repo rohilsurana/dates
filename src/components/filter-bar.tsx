@@ -19,9 +19,9 @@ interface FilterBarProps {
 
 export function FilterBar({ selectedTag, onTagChange, sortBy, onSortChange }: FilterBarProps) {
   return (
-    <div className="flex flex-col sm:flex-row gap-4 p-4 bg-white border border-neutral-200 rounded-lg">
+    <div className="flex flex-col sm:flex-row gap-4 p-4 bg-card border border-border rounded-lg">
       <div className="flex-1">
-        <p className="text-xs font-medium text-neutral-600 mb-2">Filter by tag</p>
+        <p className="text-xs font-medium text-muted-foreground mb-2">Filter by tag</p>
         <div className="flex flex-wrap gap-2">
           <Badge
             variant={selectedTag === null ? 'default' : 'outline'}
@@ -44,7 +44,7 @@ export function FilterBar({ selectedTag, onTagChange, sortBy, onSortChange }: Fi
       </div>
 
       <div className="w-full sm:w-48">
-        <p className="text-xs font-medium text-neutral-600 mb-2">Sort by</p>
+        <p className="text-xs font-medium text-muted-foreground mb-2">Sort by</p>
         <Select value={sortBy} onValueChange={(value: 'date' | 'created' | 'name') => onSortChange(value)}>
           <SelectTrigger>
             <SelectValue />

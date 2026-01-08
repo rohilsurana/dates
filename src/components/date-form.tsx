@@ -78,7 +78,7 @@ export function DateForm({ onSubmit, onCancel, initialData }: DateFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-neutral-50 border border-neutral-200 rounded-lg">
+    <form onSubmit={handleSubmit} className="space-y-6 p-6 bg-card border border-border rounded-lg">
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="date" className="text-sm font-medium">

@@ -3,6 +3,7 @@ import { DateForm } from '@/components/date-form';
 import { DateCard } from '@/components/date-card';
 import { FilterBar } from '@/components/filter-bar';
 import { HelpDialog } from '@/components/help-dialog';
+import { ThemeToggle } from '@/components/theme-toggle';
 import { storage } from '@/lib/storage';
 import type { DateEntry } from '@/lib/types';
 import { Clock } from 'lucide-react';
@@ -73,19 +74,22 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-50">
+    <div className="min-h-screen bg-background">
       <div className="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-neutral-900 rounded-lg">
-                <Clock className="h-6 w-6 text-white" />
+              <div className="p-2 bg-primary rounded-lg">
+                <Clock className="h-6 w-6 text-primary-foreground" />
               </div>
-              <h1 className="text-3xl font-bold text-neutral-900">Date Tracker</h1>
+              <h1 className="text-3xl font-bold text-foreground">Date Tracker</h1>
             </div>
-            <HelpDialog />
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <HelpDialog />
+            </div>
           </div>
-          <p className="text-neutral-600">Track time elapsed since important moments</p>
+          <p className="text-muted-foreground">Track time elapsed since important moments</p>
         </div>
 
         <div className="mb-8">
@@ -117,11 +121,11 @@ function App() {
 
         <div className="space-y-4">
           {entries.length === 0 ? (
-            <div className="text-center py-12 text-neutral-500">
+            <div className="text-center py-12 text-muted-foreground">
               <p>No dates tracked yet. Add one above to get started!</p>
             </div>
           ) : filteredAndSortedEntries.length === 0 ? (
-            <div className="text-center py-12 text-neutral-500">
+            <div className="text-center py-12 text-muted-foreground">
               <p>No dates match the selected filter.</p>
             </div>
           ) : (
