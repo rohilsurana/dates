@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
 import { Pencil, Trash2, Calendar, PartyPopper } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -15,7 +16,7 @@ interface DateCardProps {
 }
 
 export function DateCard({ entry, onEdit, onDelete }: DateCardProps) {
-  const isCelebration = () => {
+  const checkCelebration = () => {
     const entryDate = new Date(entry.date);
     const today = new Date();
     // For birthdays and anniversaries, compare month and day only (not year)
@@ -25,7 +26,16 @@ export function DateCard({ entry, onEdit, onDelete }: DateCardProps) {
     return isSameMonthDay && hasCelebrationTag;
   };
 
-  const shouldCelebrate = isCelebration();
+  const [shouldCelebrate, setShouldCelebrate] = useState(checkCelebration);
+
+  useEffect(() => {
+    // Update celebration status every minute
+    const interval = setInterval(() => {
+      setShouldCelebrate(checkCelebration());
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, [entry.date, entry.tags]);
 
   return (
     <Card className="group hover:shadow-md transition-all duration-200 hover:border-neutral-400 animate-fade-in">
