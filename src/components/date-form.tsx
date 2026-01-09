@@ -32,6 +32,7 @@ export function DateForm({ onSubmit, onCancel, initialData }: DateFormProps) {
   const [name, setName] = useState(initialData?.name || '');
   const [selectedTags, setSelectedTags] = useState<string[]>(initialData?.tags || []);
   const [showTimeInput, setShowTimeInput] = useState(!!initialData?.date);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   useEffect(() => {
     if (initialData) {
@@ -84,7 +85,7 @@ export function DateForm({ onSubmit, onCancel, initialData }: DateFormProps) {
           <Label htmlFor="date" className="text-sm font-medium">
             Date *
           </Label>
-          <Popover>
+          <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
               <Button
                 id="date"
@@ -102,7 +103,10 @@ export function DateForm({ onSubmit, onCancel, initialData }: DateFormProps) {
               <Calendar
                 mode="single"
                 selected={date}
-                onSelect={setDate}
+                onSelect={(newDate) => {
+                  setDate(newDate);
+                  setIsPopoverOpen(false);
+                }}
                 initialFocus
                 captionLayout="dropdown"
                 fromYear={1900}
