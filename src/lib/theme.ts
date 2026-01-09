@@ -7,7 +7,7 @@ export function getTheme(): Theme {
   if (stored === 'light' || stored === 'dark' || stored === 'system') {
     return stored;
   }
-  return 'light';
+  return 'system';
 }
 
 export function setTheme(theme: Theme): void {
